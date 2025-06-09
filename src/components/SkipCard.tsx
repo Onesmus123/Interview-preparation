@@ -1,9 +1,12 @@
-import React from 'react';
+// Path: src/components/SkipCard.tsx
+
+// Import framer-motion for animations
 import { motion } from 'framer-motion';
+// Import react-parallax-tilt for 3D tilt effect
 import Tilt from 'react-parallax-tilt';
 
+// Define props interface for SkipCard component
 interface SkipCardProps {
-  id: number;
   size: number;
   hirePeriod: number;
   price: number;
@@ -14,8 +17,8 @@ interface SkipCardProps {
   index: number;
 }
 
+// SkipCard component for displaying individual skip options
 export const SkipCard: React.FC<SkipCardProps> = ({
-  id,
   size,
   hirePeriod,
   price,
@@ -26,14 +29,17 @@ export const SkipCard: React.FC<SkipCardProps> = ({
   index,
 }) => {
   return (
+    // Animated container with Tailwind outline
     <motion.div
-  className="m-3 outline outline-1 outline-blue-500"
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  whileHover={{ scale: 1.03 }}
-  transition={{ duration: 0.5, delay: index * 0.1 }}
->
+      className="m-3 outline outline-1 outline-blue-500"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ scale: 1.03 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+    >
+      {/* 3D tilt effect wrapper */}
       <Tilt tiltMaxAngleX={10} tiltMaxAngleY={10} scale={1.02} transitionSpeed={300}>
+        {/* Card container with conditional Tailwind styles for selection state */}
         <div
           className={`relative rounded-3xl p-5 sm:p-6 bg-white/80 backdrop-blur-md border-2 transition-all duration-300 ${
             selected
@@ -46,6 +52,7 @@ export const SkipCard: React.FC<SkipCardProps> = ({
           tabIndex={0}
           onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onSelect()}
         >
+          {/* Checkmark for selected state */}
           {selected && (
             <motion.div
               className="absolute top-2 right-2 w-6 h-6 bg-teal-600 rounded-full flex items-center justify-center"
@@ -59,12 +66,14 @@ export const SkipCard: React.FC<SkipCardProps> = ({
             </motion.div>
           )}
           <div className="relative z-10">
+            {/* Skip size header and badge */}
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg sm:text-xl font-bold text-gray-900">{size} Yard Skip</h2>
               <span className="px-2.5 py-1 bg-teal-100 text-teal-800 text-xs font-semibold rounded-full">
                 {size} YD
               </span>
             </div>
+            {/* Skip details section */}
             <div className="space-y-3 mb-5">
               <p className="text-gray-600 text-sm flex items-center">
                 <motion.span
@@ -97,7 +106,9 @@ export const SkipCard: React.FC<SkipCardProps> = ({
                 Heavy Waste: {heavyWaste ? 'Yes' : 'No'}
               </p>
             </div>
+            {/* Price display with Tailwind styling */}
             <div className="text-xl sm:text-2xl font-extrabold text-lime-600 mb-5">£{price}</div>
+            {/* Select button with conditional Tailwind styles */}
             <button
               className={`w-full py-2.5 rounded-lg font-semibold text-sm transition-colors ${
                 selected
